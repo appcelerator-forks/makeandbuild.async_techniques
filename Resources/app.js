@@ -34,7 +34,8 @@ data.push(createRow("agree to terms", myservice.get('terms'), function(value) {
 
 var win1 = Titanium.UI.createWindow({  
     title:'Configuration',
-    backgroundColor:'#fff'
+    backgroundColor:'#fff',
+    navBarHidden:false
 });
 
 var tableview = Ti.UI.createTableView(_combine(_style.tableview, {
@@ -42,4 +43,4 @@ var tableview = Ti.UI.createTableView(_combine(_style.tableview, {
 }));
 win1.add(tableview);
 
-win1.open()
+win1.open({modal:true});

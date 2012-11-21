@@ -5,12 +5,13 @@ exports.myservice = {
     callback(null, task);
   },
   _saveConfig: function(task, callback) {
-    Ti.App.Properties.setBool(task.name, true);
+    Ti.App.Properties.setBool(task.name, task.push.config[task.name]);
     callback(null, task);
   },
   save: function(name, value, callback) {
     Ti.API.debug('saveConfig ' + name + '=' + value);
     this.config[name] = value;
+    
     this.queue.push({
       name: name,
       value: value
@@ -23,9 +24,9 @@ exports.myservice = {
     var value = task.push.config[task.name];
     var synced = Ti.App.Properties.getBool(task.name, false);
     if (value === synced) {
-      callback("worker already synced", task);
+      callback("worker already synced "+task.name, task);
     } else {
-      Ti.API.debug('_synced continuing');
+      Ti.API.debug('_synced continuing '+task.name+ " was="+synced+" is="+value);
       callback(null, task);
     }
   },
